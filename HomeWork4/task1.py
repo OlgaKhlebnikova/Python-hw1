@@ -3,10 +3,9 @@
 # N = 30 -> [2, 3, 5]
 
 from typing import List
-number = int(
-  input('Введите число, которое нужно разделить на простые множители: '))
+number = int(input('Введите число, которое нужно разделить на простые множители: '))
 
-def get_multipliers(num):
+def get_multipliers(num: int) -> List:
   '''
   Функция возвращает сформированный список простых множителей.
   Args:
