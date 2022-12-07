@@ -5,13 +5,13 @@
 from typing import List
 number = int(input('Введите число, которое нужно разделить на простые множители: '))
 
-def get_multipliers(num: int) -> List:
+def get_multipliers(num: int) -> list:
   '''
   Функция возвращает сформированный список простых множителей.
   Args:
   int - Целое число
   Reterns:
-  List[int] - Cписок чисел
+  list[int] - Cписок чисел
   '''
 
   multipliers = []

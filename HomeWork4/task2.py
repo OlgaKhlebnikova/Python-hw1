@@ -10,13 +10,13 @@ print (int_list)
 int_list2 = list(dict.fromkeys(int_list))
 print (f'Способ №1 через ключи словаря {int_list2}')
 # Способ 2
-def delete_repeats(my_list: List[int])-> List[int]:
+def delete_repeats(my_list: List[int])-> list:
   '''
   Функция возвращает сформированный список без повторов.
   Args:
   list [int] - Список целых чисел
   Reterns:
-  List[int] - Cписок целых чисел без повторов
+  list[int] - Cписок целых чисел без повторов
   '''
   list_1 = []   
   for el in my_list: 
