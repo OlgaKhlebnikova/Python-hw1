@@ -42,17 +42,17 @@ def check_number(input_string: str, state_success, state_fail, update,
         return state_fail
 
 
-# Включим ведение журнала
+
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO
 )
 logger = logging.getLogger(__name__)
 
-# Определяем константы этапов разговора
+
 SECONDNAME, NAME, TEL_NUM, COMMENT = range(4)
 SECONDNAME, NAME, TEL_NUM, COMMENT = 2,3,4,5
 
-# функция обратного вызова точки входа в разговор
+
 def start(update, _):
     update.message.reply_text(
         'Введите фамилию нового контакта.\n')
@@ -102,7 +102,7 @@ def comment(update, _):
     logger.info("Комментарий от %s: %s", user.first_name, comment)
     write_csv_file('contacts.csv',  contacet_card)
 
-    # Заканчиваем разговор.
+    
     return 0
 
 
@@ -119,40 +119,39 @@ def write_csv_file(file_name: str, list_to_write: List[str]):
         file_writer.writerow(list_to_write)
 
 
-# Обрабатываем команду /cancel если пользователь отменил разговор
+
 def cancel(update, _):
-    # определяем пользователя
+ 
     user = update.message.from_user
     logger.info("Пользователь %s передумал.", user.first_name)
-    # Отвечаем на отказ
+
     update.message.reply_text('Приходите как надумаете')
-    # Заканчиваем разговор.
+  
     return ConversationHandler.END
 
 
 def add_contact():
-    # Определяем обработчик разговоров `ConversationHandler`
+    
 
-    add_handler = ConversationHandler(  # здесь строится логика разговора
-        # точка входа в разговор
+    add_handler = ConversationHandler(  
         entry_points=[CommandHandler('add', start)],
-        # этапы разговора, каждый со своим списком обработчиков сообщений
+        
         states={
             SECONDNAME: [MessageHandler(Filters.text, get_second_name)],
             NAME: [MessageHandler(Filters.text, get_name)],
             TEL_NUM: [MessageHandler(Filters.text, get_number)],
             COMMENT: [MessageHandler(Filters.text & ~Filters.command, comment)],
         },
-        # точка выхода из разговора
+        
         fallbacks=[CommandHandler('cancel', cancel)],
     )
     dispatcher.add_handler(add_handler)
 
 
 if __name__ == '__main__':
-    # Создаем Updater и передаем ему токен вашего бота.
+   
     updater = Updater(TOKEN)
-    # получаем диспетчера для регистрации обработчиков
+
     dispatcher = updater.dispatcher
     add_contact()
 
